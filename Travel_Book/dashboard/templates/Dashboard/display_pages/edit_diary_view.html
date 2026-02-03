@@ -1,0 +1,108 @@
+{% extends "Dashboard/base_dashboard.html" %}
+{% load static %}
+
+{% block content %}
+<div class="md:w-3/4 bg-gray-800 rounded-xl p-6">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="mb-4 p-3 rounded-lg
+        {% if message.tags == 'error' %}
+            bg-red-500/20 text-red-400
+        {% else %}
+            bg-green-500/20 text-green-400
+        {% endif %}
+    ">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
+
+    <h2 class="text-2xl font-bold mb-6">Add Travel Memory</h2>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Title -->
+        <div>
+            <label class="block text-sm font-medium mb-1">Trip Title</label>
+            <input type="text" name="title" required value="{{diary.title}}"
+                class="w-full rounded-md bg-white/5 px-3 py-2 text-white outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <!-- Location -->
+        <div>
+            <label class="block text-sm font-medium mb-1">Location</label>
+            <input type="text" name="location" required value="{{diary.location}}"
+                class="w-full rounded-md bg-white/5 px-3 py-2 text-white outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <!-- Dates -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">Start Date</label>
+                <input type="date" name="start_date" value="{{ diary.start_date|date:'Y-m-d' }}"
+                    class="w-full rounded-md bg-white/5 px-3 py-2 text-white">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">End Date</label>
+                <input type="date" name="end_date" value="{{ diary.end_date|date:'Y-m-d' }}"
+                    class="w-full rounded-md bg-white/5 px-3 py-2 text-white">
+
+            </div>
+
+
+
+        </div>
+
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Category</label>
+            <select name="categories" id=""
+                class="w-full rounded-md bg-white/5 px-3 py-2 text-white outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="{{diary.categories.id}}" selected style="background-color:rgba(42, 52,65, 1)">
+                    {{diary.categories.name}}</option>
+                {% for i in types %}
+                <option value="{{i.id}}" style="background-color:rgba(42, 52,65, 1)">{{i.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Description -->
+        <div>
+            <label class="block text-sm font-medium mb-1">Memory</label>
+            <textarea name="description" rows="4" required
+                class="w-full rounded-md bg-white/5 px-3 py-2 text-white outline-none">{{diary.description}}</textarea>
+        </div>
+
+        <!-- Highlights -->
+        <div>
+            <label class="block text-sm font-medium mb-1">Highlights</label>
+            <textarea name="highlights" rows="2"
+                class="w-full rounded-md bg-white/5 px-3 py-2 text-white">{{diary.highlights}}</textarea>
+        </div>
+
+
+        <!-- Cover Photo -->
+        <div class="cover-img flex items-center gap-10">
+            <div class="img">
+                <img src="{{diary.cover_photo.url}}" alt="" class="w-60  rounded-xl">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1">Cover Photo</label>
+                <input type="file" name="cover_photo" class="block w-full text-sm text-gray-400">
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="flex justify-end">
+            <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 px-6 py-2 rounded-md font-semibold">
+                Save Memory
+            </button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

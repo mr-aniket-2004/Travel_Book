@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <title>Travel Book |Dashboard</title>
+
+    {% block external_css %}
+
+    {% endblock external_css %}
+
+</head>
+
+<body class="bg-gray-900 text-gray-100">
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Sidebar -->
+            <aside class="md:w-1/4">
+                <div class="bg-gray-800 rounded-xl p-6 mb-6">
+                    <div class="flex items-center mb-6">
+                        <!-- Profile Image -->
+                        <img src="{% if profile and profile.profile_photo %}{{ profile.profile_photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}"
+                            class="w-16 h-16 rounded-full mr-4 cursor-pointer hover:ring-2 hover:ring-indigo-500"
+                            alt="Profile" onclick="openProfileModal()">
+
+                        <div>
+                            <h2 class="font-bold">{{ profile.First_name }} {{ profile.Last_name }}</h2>
+                            <p class="text-sm text-gray-400">{{profile.user.username}}</p>
+                        </div>
+                    </div>
+                    <!-- Modal Backdrop -->
+                    <div id="profileModal"
+                        class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-50">
+
+                        <!-- Modal Box -->
+                        <div class="bg-gray-900 rounded-xl w-full max-w-[600px] p-6 relative">
+
+                            <!-- Close Button -->
+                            <button onclick="closeProfileModal()"
+                                class="absolute top-3 right-3 text-gray-400 hover:text-white">
+                                ✕
+                            </button>
+
+                            <!-- Profile Content -->
+                            <div class="flex items-center gap-5">
+                                <img src="{% if profile and profile.profile_photo %}{{ profile.profile_photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}"
+                                    class="size-40 rounded-full" alt="Profile">
+
+                                <div>
+                                    <h3 class="text-xl font-semibold text-white">
+                                        {{ profile.First_name }} {{ profile.Last_name }}
+                                    </h3>
+                                    <p class="text-gray-400 text-sm">
+                                        {{ profile.about|default:"Travel Enthusiast" }}
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="{% url 'dashboard' %}"
+                                class="flex items-center px-3 py-2 bg-primary-500/20 text-primary-500 rounded-lg font-medium">
+                                <i data-feather="home" class="w-5 h-5 mr-3"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'trip' %}"
+                                class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition">
+                                <i data-feather="map" class="w-5 h-5 mr-3"></i>
+                                My Trips
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'journey' %}"
+                                class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition">
+                                <i data-feather="navigation" class="w-5 h-5 mr-3"></i>
+                                Journey Routes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'blogs' %}"
+                                class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition">
+                                <i data-feather="book" class="w-5 h-5 mr-3"></i>
+                                My Blogs
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'gallery' %}"
+                                class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition">
+                                <i data-feather="image" class="w-5 h-5 mr-3"></i>
+                                Gallery
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'profile' %}"
+                                class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition">
+                                <i data-feather="user" class="w-5 h-5 mr-3"></i>
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}"
+                                class="flex items-center px-3 py-2 hover:bg-gray-700 rounded-lg transition">
+                                <i data-feather="log-out" class="w-5 h-5 mr-3"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-800 rounded-xl p-6">
+                    <h3 class="font-semibold mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <a href="{% url 'add_diary' %}"
+                            class="flex items-center justify-between px-3 py-2 bg-secondary-500/20 hover:bg-secondary-500/30 rounded-lg transition">
+                            <span class="flex items-center">
+                                <i data-feather="plus-circle" class="w-5 h-5 mr-3 text-secondary-500"></i>
+                                Add Trip
+                            </span>
+                            <i data-feather="chevron-right" class="w-5 h-5"></i>
+                        </a>
+                        
+                        <a href="{% url 'create_blog' %}"
+                            class="flex items-center justify-between px-3 py-2 bg-secondary-500/20 hover:bg-secondary-500/30 rounded-lg transition">
+                            <span class="flex items-center">
+                                <i data-feather="edit-3" class="w-5 h-5 mr-3 text-secondary-500"></i>
+                                Write Blog
+                            </span>
+                            <i data-feather="chevron-right" class="w-5 h-5"></i>
+                        </a>
+                        <a href="{% url 'upload_photo' %}"
+                            class="flex items-center justify-between px-3 py-2 bg-secondary-500/20 hover:bg-secondary-500/30 rounded-lg transition">
+                            <span class="flex items-center">
+                                <i data-feather="camera" class="w-5 h-5 mr-3 text-secondary-500"></i>
+                                Upload Photo
+                            </span>
+                            <i data-feather="chevron-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+
+            {% block content %}
+
+            {% endblock content %}
+
+        </div>
+
+    </main>
+
+    <script>feather.replace();</script>
+    <script>
+        function openProfileModal() {
+            document.getElementById("profileModal").classList.remove("hidden");
+        }
+
+        function closeProfileModal() {
+            document.getElementById("profileModal").classList.add("hidden");
+        }
+    </script>
+
+</body>
+
+</html>

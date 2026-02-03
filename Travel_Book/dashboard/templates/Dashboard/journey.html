@@ -1,0 +1,104 @@
+{% extends "Dashboard/base_dashboard.html" %}
+
+
+
+{% block content %}
+<div class="md:w-3/4">
+    <div class="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 text-white px-6 py-16">
+
+        <!-- Header -->
+        <div class="text-center mb-20">
+            <h1 class="text-4xl font-bold mb-3">Your Journey Timeline</h1>
+            <p class="text-gray-400">
+                Scroll down to explore your trip with animated timeline and stops
+            </p>
+        </div>
+        
+
+        <div class="relative max-w-6xl mx-auto">
+
+            <!-- Center Line -->
+            <div class="absolute left-1/2 top-0 h-full w-[2px] bg-indigo-500/60 -translate-x-1/2"></div>
+            {% for trip in trips %}
+
+            {% if forloop.counter|divisibleby:2 %}
+            <div class="relative grid grid-cols-1 md:grid-cols-2 gap-10 mb-24 items-center">
+                <div></div>
+
+                <div class="bg-white/5 border border-white/10 rounded-2xl shadow-xl overflow-hidden animate-timeline">
+                    <img src="{{trip.cover_photo.url}}" class="w-full h-56 object-cover" />
+
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-1">{{trip.title}}</h2>
+                        <h4 class="text-xl font-semibold mb-1">{{trip.location}}</h4>
+                        <p class="text-sm text-gray-400 mb-4">{{trip.end_date}}</p>
+                        <p class="text-sm text-gray-400 mb-4">
+                            {{trip.description}}
+                        </p>
+
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 text-xs rounded-full bg-indigo-500/20 text-indigo-300"><a href="{% url 'gallery' %}">Gallery</a></span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-indigo-500/20 text-indigo-300"><a href="{% url 'blogs' %}">Blog</a></span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dot -->
+                <div class="absolute left-1/2 w-5 h-5 bg-indigo-500 rounded-full -translate-x-1/2"></div>
+            </div>
+            {% else %}
+            <div class="relative grid grid-cols-1 md:grid-cols-2 gap-10 mb-24 items-center">
+                <div class="bg-white/5 border border-white/10 rounded-2xl shadow-xl overflow-hidden animate-timeline">
+                    <img src="{{trip.cover_photo.url}}" class="w-full h-56 object-cover" />
+
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold mb-1">{{trip.title}}</h2>
+                        <h4 class="text-xl font-semibold mb-1">{{trip.location}}</h4>
+                        <p class="text-sm text-gray-400 mb-4">{{trip.end_date}}</p>
+                        <p class="text-sm text-gray-400 mb-4">
+                            {{trip.description}}
+                        </p>
+
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 text-xs rounded-full bg-indigo-500/20 text-indigo-300"><a href="{% url 'gallery' %}">Gallery</a></span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-indigo-500/20 text-indigo-300"><a href="{% url 'blogs' %}">Blog</a></span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div></div>
+
+                <!-- Dot -->
+                <div class="absolute left-1/2 w-5 h-5 bg-indigo-500 rounded-full -translate-x-1/2"></div>
+            </div>
+
+            {% endif %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <style>
+        @keyframes timelineFade {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-timeline {
+            animation: timelineFade 0.9s ease forwards;
+        }
+    </style>
+
+</div>
+
+{% endblock content %}

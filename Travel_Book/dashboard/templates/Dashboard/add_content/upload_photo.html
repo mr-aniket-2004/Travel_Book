@@ -1,0 +1,75 @@
+{% extends "Dashboard/base_dashboard.html" %}
+
+
+
+{% block content %}
+
+<div class="md:w-3/4">
+    <div class="w-full bg-gray-800 rounded-xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold mb-4 text-white">Add Photo to Gallery</h2>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+
+            <!-- Image Upload -->
+            <div>
+                <label class="block text-sm mb-2 text-gray-300">Upload Photo</label>
+                <div class="flex items-center justify-center w-full">
+                    <label class="w-full h-40 flex flex-col items-center justify-center
+                           border-2 border-dashed border-white/20 rounded-lg
+                           cursor-pointer hover:bg-white/5 transition">
+                        <input type="file" name="image" accept="image/*" class="hidden" onchange="previewImage(event)">
+                        <span class="text-gray-400">Click to upload image</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Image Preview -->
+            <div id="previewBox" class="hidden">
+                <img id="imagePreview" class="w-full h-40 object-cover rounded-lg border border-white/10">
+            </div>
+
+            <!-- Travel Entery -->
+            <div>
+                <label class="block text-sm mb-1 text-gray-300">Select Trip</label>
+                <select name="name" id="" class="w-full rounded-md bg-white/5 px-3 py-2 text-white outline-none
+                       focus:ring-2 focus:ring-indigo-500" required>
+                    <option value="" style="background-color:rgba(42, 52,65, 1)">Select</option>
+                    
+                    {% if diary %}
+                    {% for list  in diary %}  
+                    <option value="{{list.id}}" style="background-color:rgba(42, 52,65, 1)">{{list.title}}</option>
+                    {% endfor %}
+                    {% endif %}
+                    
+                        
+                </select>
+            </div>
+
+
+            <!-- Caption -->
+            <div>
+                <label class="block text-sm mb-1 text-gray-300">Caption</label>
+                <input type="text" name="description" class="w-full rounded-md bg-white/5 px-3 py-2 text-white outline-none
+                       focus:ring-2 focus:ring-indigo-500" placeholder="Photo caption">
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-600 py-2 rounded-lg font-semibold">
+                Add to Gallery
+            </button>
+        </form>
+    </div>
+    <script>
+        function previewImage(event) {
+            const previewBox = document.getElementById('previewBox');
+            const preview = document.getElementById('imagePreview');
+
+            preview.src = URL.createObjectURL(event.target.files[0]);
+            previewBox.classList.remove('hidden');
+        }
+    </script>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,85 @@
+{% extends "Dashboard/base_dashboard.html" %}
+
+{% block content %}
+<div class="md:w-3/4">
+
+    <!-- Header -->
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold">{{ diary.title }}</h1>
+        <p class="text-gray-400 mt-1">
+            📍 {{ diary.location }}
+        </p>
+    </div>
+
+    <!-- Cover Photo -->
+    {% if diary.cover_photo %}
+    <div class="mb-6">
+        <img src="{{ diary.cover_photo.url }}" class="w-full h-64 object-cover rounded-xl">
+    </div>
+    {% endif %}
+
+    <!-- Meta Info -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+
+        <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-400 text-sm">Start Date</p>
+            <p class="font-semibold">{{ diary.start_date }}</p>
+        </div>
+
+        <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-400 text-sm">End Date</p>
+            <p class="font-semibold">{{ diary.end_date }}</p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-gray-400 text-sm">Category</p>
+            <p class="font-semibold">{{ diary.categories.name|default:"Not Mentioned"}}</p>
+        </div>
+
+    </div>
+
+    <!-- Description -->
+    <div class="bg-gray-800 rounded-xl p-6 mb-6">
+        <h2 class="text-xl font-bold mb-3">📝 Travel Memory</h2>
+        <p class="text-gray-300 leading-relaxed">
+            {{ diary.description }}
+        </p>
+    </div>
+
+    <!-- Highlights -->
+    {% if diary.highlights %}
+    <div class="bg-gray-800 rounded-xl p-6 mb-6">
+        <h2 class="text-xl font-bold mb-3">✨ Highlights</h2>
+        <p class="text-gray-300">
+            {{ diary.highlights }}
+        </p>
+    </div>
+    {% endif %}
+
+    <!-- Actions -->
+    <div class="flex justify-between mt-6">
+        <a href="{% url 'trip' %}" class="px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600">
+            ← Back
+        </a>
+        <div class="flex gap-3">
+            <!-- Edit -->
+            <a href="{% url 'edit_diary' diary.id %}"
+                class="px-4 py-2 bg-indigo-500 rounded-lg hover:bg-indigo-600 flex items-center gap-2">
+                <i data-feather="edit"></i>
+                Edit
+            </a>
+
+            <!-- Delete -->
+            <form method="post" action="{% url 'delete_diary' diary.id %}"
+                onsubmit="return confirm('Are you sure you want to delete this diary entry?');">
+                {% csrf_token %}
+                <button type="submit" class="px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 flex items-center gap-2">
+                    <i data-feather="trash-2"></i>
+                    Delete
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
