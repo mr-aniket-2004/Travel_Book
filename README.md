@@ -4,7 +4,7 @@
 📌 Project Overview
 Travel Book is a web-based travel diary and trip management system developed using Python Django.
 The application enables users to register, log in, manage trips, write travel blogs, upload galleries, and maintain personal travel records through a secure dashboard.
-The project includes full authentication, email-based password recovery, custom error handling, and structured navigation flow, making it suitable as a core MCA / academic project.
+The project includes full authentication, email-based password recovery, custom error handling, and structured navigation flow.
 ________________________________________
 🎯 Key Features
 🔐 Authentication & Security
