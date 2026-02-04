@@ -73,9 +73,6 @@ The project includes:
 ---
 
 ## 📂 Project Structure (Simplified)
-
-```
-
 Travel_Book/
 │
 ├── accounts/        # Authentication & user management
@@ -88,8 +85,8 @@ Travel_Book/
 ├── Travel_Book/     # Project settings
 ├── manage.py
 └── requirements.txt
-
-````
+```
+```
 
 ---
 
