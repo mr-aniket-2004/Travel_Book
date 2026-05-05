@@ -1,0 +1,94 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django
+*.log
+db.sqlite3
+/media/
+/staticfiles/
+/static/admin/
+/static/rest_framework/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+desktop.ini
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local development
+*.sqlite
+*.sqlite3
+local_settings.py
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.pyc
+.tmp/
+
+# IDE specific
+.venv/
+.env.dev
+.env.prod
+
+# Package management
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Node modules (if using frontend tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Misc
+.pre-commit-config.yaml
+.mypy_cache/
+.dmypy.json
+dmypy.json
